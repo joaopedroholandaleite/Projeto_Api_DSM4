@@ -1,0 +1,375 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="aula10.MainPage"
+             Title="Weatheria"
+             BackgroundImageSource="weather_banner.png">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20"
+                             Spacing="22">
+
+            <!-- CABEÇALHO WEATHERIA -->
+            <VerticalStackLayout Spacing="8">
+                
+
+                <Label
+                    Text="☁  ☁  ☁"
+                    FontSize="28"
+                    TextColor="#8DD9FF"
+                    HorizontalOptions="Center" />
+
+                <Label
+                    Text="WEATHERIA"
+                    FontSize="15"
+                    CharacterSpacing="7"
+                    FontAttributes="Bold"
+                    TextColor="#F5C96A"
+                    HorizontalOptions="Center" />
+
+                <Label
+                    Text="CENTRAL METEOROLÓGICA"
+                    FontSize="25"
+                    FontAttributes="Bold"
+                    TextColor="White"
+                    HorizontalOptions="Center"
+                    HorizontalTextAlignment="Center" />
+
+                <Frame
+    Padding="12,6"
+    CornerRadius="10"
+    HasShadow="False"
+    BackgroundColor="#CC071B33"
+    BorderColor="#39749A"
+    HorizontalOptions="Center">
+
+                    <Label
+        Text="Laboratório de monitoramento climático"
+        FontSize="13"
+        TextColor="White"
+        HorizontalTextAlignment="Center" />
+
+                </Frame>
+
+                <BoxView
+                    HeightRequest="2"
+                    WidthRequest="100"
+                    Color="#F5C96A"
+                    HorizontalOptions="Center"
+                    Margin="0,8,0,0" />
+
+            </VerticalStackLayout>
+
+            <!-- SELEÇÃO DA ILHA -->
+            <Frame
+                Padding="16"
+                CornerRadius="20"
+                HasShadow="False"
+                BackgroundColor="#123453"
+                BorderColor="#39749A">
+
+                <VerticalStackLayout Spacing="12">
+
+                    <Label
+                        Text="MAPA DE ILHAS"
+                        FontSize="13"
+                        CharacterSpacing="3"
+                        FontAttributes="Bold"
+                        TextColor="#F5C96A" />
+
+                    <Label
+                        Text="Selecione uma ilha para analisar"
+                        FontSize="14"
+                        TextColor="#D6EAF8" />
+
+                    <Picker
+                        x:Name="IlhaPicker"
+                        TitleColor="#A9CDE8"
+                        TextColor="White"
+                        BackgroundColor="#1D4B70"
+                        ItemDisplayBinding="{Binding NomeExibicao}"
+                        SelectedIndexChanged="IlhaPicker_SelectedIndexChanged" />
+
+                    <ActivityIndicator
+                        x:Name="LoadingIndicator"
+                        IsRunning="False"
+                        IsVisible="False"
+                        Color="#F5C96A"
+                        HorizontalOptions="Center" />
+
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- IMAGEM DA ILHA -->
+            <Frame
+                Padding="10"
+                CornerRadius="20"
+                HasShadow="False"
+                BackgroundColor="#123453"
+                BorderColor="#39749A">
+
+                <VerticalStackLayout Spacing="8">
+
+                    <Label
+                        Text="ILHA EM OBSERVAÇÃO"
+                        FontSize="12"
+                        CharacterSpacing="3"
+                        FontAttributes="Bold"
+                        TextColor="#F5C96A"
+                        HorizontalOptions="Center" />
+
+                    <Image
+                        x:Name="IlhaImage"
+                        HeightRequest="300"
+                        WidthRequest="400"
+                        Aspect="AspectFit"
+                        HorizontalOptions="Center"
+                        IsVisible="False" />
+
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- PAINEL CLIMÁTICO -->
+            <Frame
+                Padding="20"
+                CornerRadius="25"
+                HasShadow="False"
+                BackgroundColor="#16466B"
+                BorderColor="#F5C96A">
+
+                <VerticalStackLayout Spacing="18">
+
+                    <Label
+                        Text="RELATÓRIO METEOROLÓGICO"
+                        FontSize="13"
+                        CharacterSpacing="2"
+                        FontAttributes="Bold"
+                        TextColor="#F5C96A"
+                        HorizontalOptions="Center" />
+
+                    <Label
+                        Text="CONDIÇÕES ATUAIS"
+                        FontSize="11"
+                        CharacterSpacing="3"
+                        TextColor="#B9DDF4"
+                        HorizontalOptions="Center" />
+
+                    <Image
+                        x:Name="ClimaIcone"
+                        Source="sol.png"
+                        HeightRequest="95"
+                        WidthRequest="95"
+                        HorizontalOptions="Center" />
+
+                    <Label
+                        x:Name="TemperaturaLabel"
+                        Text="-- °C"
+                        FontSize="34"
+                        FontAttributes="Bold"
+                        TextColor="White"
+                        HorizontalOptions="Center"
+                        HorizontalTextAlignment="Center" />
+
+                    <Label
+                        x:Name="CondicaoLabel"
+                        Text="Aguardando consulta..."
+                        FontSize="16"
+                        TextColor="#D6EAF8"
+                        HorizontalOptions="Center"
+                        HorizontalTextAlignment="Center" />
+
+                    <BoxView
+                        HeightRequest="1"
+                        Color="#79B8DC"
+                        Opacity="0.6" />
+
+                    <!-- MÁXIMA E MÍNIMA -->
+                    <Grid ColumnDefinitions="*,*"
+                          ColumnSpacing="12">
+
+                        <Frame
+                            Grid.Column="0"
+                            Padding="12"
+                            CornerRadius="16"
+                            HasShadow="False"
+                            BackgroundColor="#20577F">
+
+                            <VerticalStackLayout Spacing="8">
+
+                                <Label
+                                    Text="MÁXIMA"
+                                    FontSize="11"
+                                    CharacterSpacing="2"
+                                    TextColor="#FFD98A"
+                                    HorizontalOptions="Center" />
+
+                                <Image
+                                    Source="termometro.png"
+                                    HeightRequest="35"
+                                    WidthRequest="35"
+                                    HorizontalOptions="Center" />
+
+                                <Label
+                                    x:Name="MaximaLabel"
+                                    Text="-- °C"
+                                    FontSize="21"
+                                    FontAttributes="Bold"
+                                    TextColor="White"
+                                    HorizontalOptions="Center" />
+
+                            </VerticalStackLayout>
+                        </Frame>
+
+                        <Frame
+                            Grid.Column="1"
+                            Padding="12"
+                            CornerRadius="16"
+                            HasShadow="False"
+                            BackgroundColor="#20577F">
+
+                            <VerticalStackLayout Spacing="8">
+
+                                <Label
+                                    Text="MÍNIMA"
+                                    FontSize="11"
+                                    CharacterSpacing="2"
+                                    TextColor="#A9E4FF"
+                                    HorizontalOptions="Center" />
+
+                                <Image
+                                    Source="termometrofrio.png"
+                                    HeightRequest="35"
+                                    WidthRequest="35"
+                                    HorizontalOptions="Center" />
+
+                                <Label
+                                    x:Name="MinimaLabel"
+                                    Text="-- °C"
+                                    FontSize="21"
+                                    FontAttributes="Bold"
+                                    TextColor="White"
+                                    HorizontalOptions="Center" />
+
+                            </VerticalStackLayout>
+                        </Frame>
+
+                    </Grid>
+
+                    <BoxView
+                        HeightRequest="1"
+                        Color="#79B8DC"
+                        Opacity="0.6" />
+
+                    <!-- UMIDADE E VENTO -->
+                    <Grid ColumnDefinitions="*,*"
+                          ColumnSpacing="12">
+
+                        <Frame
+                            Grid.Column="0"
+                            Padding="12"
+                            CornerRadius="16"
+                            HasShadow="False"
+                            BackgroundColor="#20577F">
+
+                            <VerticalStackLayout Spacing="8">
+
+                                <Label
+                                    Text="UMIDADE"
+                                    FontSize="11"
+                                    CharacterSpacing="2"
+                                    TextColor="#A9E4FF"
+                                    HorizontalOptions="Center" />
+
+                                <Image
+                                    Source="umidade.png"
+                                    HeightRequest="35"
+                                    WidthRequest="35"
+                                    HorizontalOptions="Center" />
+
+                                <Label
+                                    x:Name="UmidadeLabel"
+                                    Text="--%"
+                                    FontSize="21"
+                                    FontAttributes="Bold"
+                                    TextColor="White"
+                                    HorizontalOptions="Center" />
+
+                            </VerticalStackLayout>
+                        </Frame>
+
+                        <Frame
+                            Grid.Column="1"
+                            Padding="12"
+                            CornerRadius="16"
+                            HasShadow="False"
+                            BackgroundColor="#20577F">
+
+                            <VerticalStackLayout Spacing="8">
+
+                                <Label
+                                    Text="VENTO"
+                                    FontSize="11"
+                                    CharacterSpacing="2"
+                                    TextColor="#A9E4FF"
+                                    HorizontalOptions="Center" />
+
+                                <Image
+                                    Source="vento.png"
+                                    HeightRequest="35"
+                                    WidthRequest="35"
+                                    HorizontalOptions="Center" />
+
+                                <Label
+                                    x:Name="VentoLabel"
+                                    Text="-- km/h"
+                                    FontSize="21"
+                                    FontAttributes="Bold"
+                                    TextColor="White"
+                                    HorizontalOptions="Center" />
+
+                            </VerticalStackLayout>
+                        </Frame>
+
+                    </Grid>
+
+                    <Label
+                        Text="FIM DO RELATÓRIO"
+                        FontSize="10"
+                        CharacterSpacing="3"
+                        TextColor="#A9CDE8"
+                        HorizontalOptions="Center" />
+
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- RODAPÉ -->
+            <VerticalStackLayout Spacing="6">
+
+                <Label
+                    Text="☁  WEATHERIA WEATHER LAB  ☁"
+                    FontSize="12"
+                    CharacterSpacing="2"
+                    FontAttributes="Bold"
+                    TextColor="#F5C96A"
+                    HorizontalOptions="Center" />
+
+                <Label
+                    Text="Dados meteorológicos fornecidos pela Open-Meteo"
+                    FontSize="10"
+                    TextColor="#789BB8"
+                    HorizontalOptions="Center"
+                    HorizontalTextAlignment="Center" />
+
+                <Label
+                    Text="ONE PIECE • GRAND LINE"
+                    FontSize="10"
+                    CharacterSpacing="3"
+                    TextColor="#789BB8"
+                    HorizontalOptions="Center" />
+
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

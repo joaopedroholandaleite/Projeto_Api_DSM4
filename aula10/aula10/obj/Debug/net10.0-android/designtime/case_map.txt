@@ -1,0 +1,12 @@
+images\chuva;images\chuva
+images\neblina;images\neblina
+images\neve;images\neve
+images\nublado;images\nublado
+images\sol;images\sol
+images\tempestade;images\tempestade
+images\termometro;images\termometro
+images\termometrofrio;images\termometrofrio
+images\umidade;images\umidade
+images\vento;images\vento
+images\weather_banner;images\weather_banner
+raw\aboutassets;raw\AboutAssets
